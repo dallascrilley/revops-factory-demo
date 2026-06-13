@@ -1,0 +1,18 @@
+# Cloudflare Pages config. The static Astro site builds to ./dist; functions in
+# ./functions are deployed as Pages Functions (POST /api/review).
+#
+#   pnpm build && npx wrangler pages dev dist   # serve site + functions locally
+#
+# Required runtime bindings (set in the Cloudflare dashboard / via `wrangler`):
+#   - secret  ANTHROPIC_API_KEY   (LLM provider key; never committed)
+#   - kv       FACTORY_KV         (run cache + per-IP rate limit + daily budget)
+#
+name = "revops-factory-demo"
+pages_build_output_dir = "dist"
+compatibility_date = "2024-11-01"
+
+# KV namespace binding. Replace `id` with the real namespace id at deploy time
+# (U10). Local dev uses a throwaway namespace via `wrangler pages dev`.
+# [[kv_namespaces]]
+# binding = "FACTORY_KV"
+# id = "<set-at-deploy>"

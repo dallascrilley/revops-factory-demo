@@ -1,0 +1,21 @@
+{
+   "name": "revops-factory-demo",
+   "type": "module",
+   "version": "1.0.0",
+   "private": false,
+   "description": "RevOps Software Factory — a coordinator + specialist agents that review a synthetic HubSpot CRM batch and emit one approval-biased verdict, with a live token-cost ledger. Public portfolio demo. Ports Cloudflare's multi-agent code-review factory into RevOps.",
+   "scripts": {
+      "dev": "astro dev",
+      "build": "astro build",
+      "preview": "astro preview",
+      "build:test-engine": "tsc src/components/engine.ts src/components/types.ts src/data/expected-findings.ts --outDir tests/.engine-build --target es2022 --module nodenext --moduleResolution nodenext --skipLibCheck",
+      "test": "pnpm build:test-engine && node --test"
+   },
+   "dependencies": {
+      "astro": "^5.0.0"
+   },
+   "devDependencies": {
+      "typescript": "^5.6.0"
+   },
+   "packageManager": "pnpm@10.33.2"
+}
