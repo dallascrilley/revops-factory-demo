@@ -1,7 +1,15 @@
 ---
-const title = "RevOps Software Factory — review your revenue data for ~$1";
+import '../styles/revops-factory.css';
+
+const title = 'RevOps Software Factory — review your revenue data for ~$1';
 const description =
   "A coordinator + specialist agents review a synthetic HubSpot CRM batch and return one approval-biased verdict, with a live token-cost ledger. Ports Cloudflare's $1 code-review factory into RevOps.";
+
+const batches = [
+  { id: 'trivial', tier: 'Trivial', name: 'Nightly sync', meta: '6 records · 2-agent team · cheaper coordinator' },
+  { id: 'lite', tier: 'Lite', name: 'Territory import', meta: '14 records · 3-agent team' },
+  { id: 'full', tier: 'Full', name: 'Quarter-end pipeline', meta: '29 records · full 4-agent team' },
+];
 ---
 <!doctype html>
 <html lang="en">
@@ -11,12 +19,58 @@ const description =
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="theme-color" content="#0f766e" />
   </head>
   <body>
-    <main>
-      <h1>RevOps Software Factory</h1>
-      <p>{description}</p>
-      <!-- U7 builds the batch picker, streamed trace UI, verdict card, and cost ledger here. -->
-    </main>
+    <div class="wrap">
+      <header class="masthead">
+        <p class="eyebrow">RevOps Software Factory</p>
+        <h1>Review your revenue data for about a dollar.</h1>
+        <p class="lede">{description}</p>
+        <p class="honest">
+          Synthetic data only — no real CRM. The agents make real model calls server-side,
+          behind a cache + budget guard, so most runs serve a <em>cached real run</em>. Each
+          run tells you whether it was fresh, cached, or a failback.
+        </p>
+      </header>
+
+      <section aria-label="Pick a batch">
+        <div class="picker" id="picker">
+          {batches.map((b) => (
+            <button class="batch" data-batch={b.id} aria-pressed={b.id === 'lite' ? 'true' : 'false'}>
+              <span class="tier">{b.tier}</span>
+              <p class="name">{b.name}</p>
+              <span class="meta">{b.meta}</span>
+            </button>
+          ))}
+        </div>
+        <div class="controls">
+          <button class="run-btn" id="run">Run review</button>
+          <label class="toggle">
+            <input type="checkbox" id="breakglass" /> Break glass (force approval)
+          </label>
+        </div>
+      </section>
+
+      <div class="error-box" id="error" hidden></div>
+
+      <section aria-label="Review trace">
+        <div class="trace" id="trace"></div>
+        <div class="findings" id="findings"></div>
+      </section>
+
+      <section class="verdict-card" id="verdict" hidden aria-live="polite">
+        <div class="verdict-line">
+          <span class="verdict-badge" id="verdict-badge" data-v="approve"></span>
+          <span class="served" id="served"></span>
+        </div>
+        <p class="summary" id="summary"></p>
+        <div class="ledger" id="ledger"></div>
+      </section>
+    </div>
+
+    <script>
+      import '../components/app.ts';
+    </script>
   </body>
 </html>

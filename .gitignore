@@ -7,3 +7,6 @@ tests/.engine-build/
 .dev.vars
 .DS_Store
 *.log
+
+# Local proof receipts (agent-generated, not source)
+.agents-state/
