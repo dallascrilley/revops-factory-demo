@@ -1,0 +1,18 @@
+{
+  "dedup": {
+    "text": "[{\"severity\":\"critical\",\"category\":\"dedup\",\"recordType\":\"company\",\"recordId\":\"co_102\",\"claim\":\"Duplicate company\",\"evidence\":\"co_101 and co_102 share domain cascade.example\"},{\"severity\":\"warning\",\"category\":\"dedup\",\"recordType\":\"contact\",\"recordId\":\"ct_102\",\"claim\":\"Duplicate contact\",\"evidence\":\"ct_101 and ct_102 share email lee@cascade.example\"}]",
+    "usage": { "inputTokens": 900, "outputTokens": 120 }
+  },
+  "stage-logic": {
+    "text": "[{\"severity\":\"warning\",\"category\":\"stage-logic\",\"recordType\":\"deal\",\"recordId\":\"dl_102\",\"claim\":\"Open deal past its close date\",\"evidence\":\"closeDate 2026-02-01 is before 2026-06-13 but stage is qualifiedtobuy\"},{\"severity\":\"critical\",\"category\":\"stage-logic\",\"recordType\":\"deal\",\"recordId\":\"dl_105\",\"claim\":\"Negative deal amount\",\"evidence\":\"amount is -5000\"}]",
+    "usage": { "inputTokens": 700, "outputTokens": 90 }
+  },
+  "attribution": {
+    "text": "[{\"severity\":\"warning\",\"category\":\"attribution\",\"recordType\":\"deal\",\"recordId\":\"dl_103\",\"claim\":\"Cross-company attribution\",\"evidence\":\"lastTouch ct_103 belongs to co_103 but deal is for co_104\"}]",
+    "usage": { "inputTokens": 650, "outputTokens": 60 }
+  },
+  "coordinator": {
+    "text": "{\"summary\":\"3 specialists flagged 5 issues across dedup, stage logic, and attribution. One critical (negative amount) drives the verdict; the rest ship with comments.\",\"suppressRecordIds\":[]}",
+    "usage": { "inputTokens": 500, "outputTokens": 80 }
+  }
+}
