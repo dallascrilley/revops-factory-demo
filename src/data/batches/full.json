@@ -1,0 +1,41 @@
+{
+  "id": "full",
+  "tier": "full",
+  "label": "Full — a 29-record quarter-end pipeline",
+  "description": "A large, messy quarter-end pipeline pull. High blast radius: the full 4-agent dream team reviews it on the top coordinator model.",
+  "companies": [
+    { "id": "co_201", "name": "Vertex Robotics", "domain": "vertexrobotics.example", "industry": "Manufacturing", "employeeCount": 520, "enrichedAt": "2026-06-05" },
+    { "id": "co_202", "name": "Vertex Robotics LLC", "domain": "vertexrobotics.example", "industry": "Manufacturing", "employeeCount": 520, "enrichedAt": "2026-06-02" },
+    { "id": "co_203", "name": "Lumen Retail Group", "domain": "lumenretail.example", "industry": "Retail", "employeeCount": 3100, "enrichedAt": "2026-05-18" },
+    { "id": "co_204", "name": "Pinecrest Capital", "domain": "pinecrest.example", "industry": null, "employeeCount": null, "enrichedAt": "2023-08-30" },
+    { "id": "co_205", "name": "Harbor Freight Systems", "domain": "harborfs.example", "industry": "Logistics", "employeeCount": 870, "enrichedAt": "2026-04-12" },
+    { "id": "co_206", "name": "Solstice Energy", "domain": "solsticeenergy.example", "industry": "Energy", "employeeCount": 6400, "enrichedAt": null },
+    { "id": "co_207", "name": "Maple & Co Accounting", "domain": "mapleco.example", "industry": "Professional Services", "employeeCount": 60, "enrichedAt": "2024-02-19" }
+  ],
+  "contacts": [
+    { "id": "ct_201", "email": "rae@vertexrobotics.example", "firstName": "Rae", "lastName": "Salas", "companyId": "co_201", "lifecycleStage": "opportunity" },
+    { "id": "ct_202", "email": "rae@vertexrobotics.example", "firstName": "Rae", "lastName": "Salas", "companyId": "co_202", "lifecycleStage": "opportunity" },
+    { "id": "ct_203", "email": "kit@lumenretail.example", "firstName": "Kit", "lastName": "Bauer", "companyId": "co_203", "lifecycleStage": "sql" },
+    { "id": "ct_204", "email": "noor@lumenretail.example", "firstName": "Noor", "lastName": "Haddad", "companyId": "co_203", "lifecycleStage": "opportunity" },
+    { "id": "ct_205", "email": "drew@pinecrest.example", "firstName": "Drew", "lastName": "Okonkwo", "companyId": "co_204", "lifecycleStage": "lead" },
+    { "id": "ct_206", "email": "ELLIS@harborfs.example", "firstName": "Ellis", "lastName": "Frank", "companyId": "co_205", "lifecycleStage": "opportunity" },
+    { "id": "ct_207", "email": "ellis@harborfs.example", "firstName": "Ellis", "lastName": "Frank", "companyId": "co_205", "lifecycleStage": "opportunity" },
+    { "id": "ct_208", "email": "sky@solsticeenergy.example", "firstName": "Sky", "lastName": "Petrov", "companyId": "co_206", "lifecycleStage": "opportunity" },
+    { "id": "ct_209", "email": "june@mapleco.example", "firstName": "June", "lastName": "Adler", "companyId": "co_207", "lifecycleStage": "customer" },
+    { "id": "ct_210", "email": "wren@lumenretail.example", "firstName": "Wren", "lastName": "Costa", "companyId": "co_203", "lifecycleStage": "mql" }
+  ],
+  "deals": [
+    { "id": "dl_201", "name": "Vertex — cell automation", "amount": 410000, "stage": "decisionmakerboughtin", "closeDate": "2026-07-31", "companyId": "co_201", "attribution": { "firstTouch": "ct_201", "lastTouch": "ct_201" } },
+    { "id": "dl_202", "name": "Vertex — automation (dup entry)", "amount": 410000, "stage": "decisionmakerboughtin", "closeDate": "2026-07-31", "companyId": "co_202", "attribution": { "firstTouch": "ct_202", "lastTouch": "ct_202" } },
+    { "id": "dl_203", "name": "Lumen — POS modernization", "amount": 880000, "stage": "contractsent", "closeDate": "2026-08-15", "companyId": "co_203", "attribution": { "firstTouch": "ct_203", "lastTouch": "ct_204" } },
+    { "id": "dl_204", "name": "Lumen — analytics add-on", "amount": 120000, "stage": "closedwon", "closeDate": null, "companyId": "co_203", "attribution": { "firstTouch": "ct_210", "lastTouch": "ct_210" } },
+    { "id": "dl_205", "name": "Pinecrest — advisory seats", "amount": 0, "stage": "closedwon", "closeDate": "2026-05-09", "companyId": "co_204", "attribution": { "firstTouch": "ct_205", "lastTouch": "ct_205" } },
+    { "id": "dl_206", "name": "Harbor — routing suite", "amount": 260000, "stage": "qualifiedtobuy", "closeDate": "2026-01-20", "companyId": "co_205", "attribution": { "firstTouch": "ct_206", "lastTouch": "ct_206" } },
+    { "id": "dl_207", "name": "Solstice — grid optimization", "amount": 1500000, "stage": "presentationscheduled", "closeDate": "2026-09-30", "companyId": "co_206", "attribution": { "firstTouch": "ct_208", "lastTouch": "ct_209" } },
+    { "id": "dl_208", "name": "Maple — bookkeeping tier", "amount": 18000, "stage": "closedwon", "closeDate": "2026-05-01", "companyId": "co_207", "attribution": { "firstTouch": "ct_209", "lastTouch": "ct_209" } },
+    { "id": "dl_209", "name": "Lumen — services", "amount": -12000, "stage": "contractsent", "closeDate": "2026-08-20", "companyId": "co_203", "attribution": { "firstTouch": "ct_204", "lastTouch": "ct_204" } },
+    { "id": "dl_210", "name": "Harbor — expansion", "amount": 95000, "stage": "appointmentscheduled", "closeDate": "2026-03-10", "companyId": "co_205", "attribution": { "firstTouch": "ct_207", "lastTouch": "ct_207" } },
+    { "id": "dl_211", "name": "Pinecrest — retainer", "amount": 64000, "stage": "contractsent", "closeDate": "2026-07-05", "companyId": "co_204", "attribution": { "firstTouch": null, "lastTouch": null } },
+    { "id": "dl_212", "name": "Vertex — service contract", "amount": 88000, "stage": "closedwon", "closeDate": "2026-06-01", "companyId": "co_201", "attribution": { "firstTouch": "ct_201", "lastTouch": "ct_203" } }
+  ]
+}

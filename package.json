@@ -8,7 +8,7 @@
       "dev": "astro dev",
       "build": "astro build",
       "preview": "astro preview",
-      "build:test-engine": "tsc src/components/engine.ts src/components/types.ts src/data/expected-findings.ts --outDir tests/.engine-build --target es2022 --module nodenext --moduleResolution nodenext --skipLibCheck",
+      "build:test-engine": "tsc src/components/engine.ts src/components/types.ts src/data/expected-findings.ts --rootDir src --outDir tests/.engine-build --target es2022 --module nodenext --moduleResolution nodenext --skipLibCheck",
       "test": "pnpm build:test-engine && node --test"
    },
    "dependencies": {

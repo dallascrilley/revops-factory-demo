@@ -1,0 +1,129 @@
+{
+  "id": "lite",
+  "tier": "lite",
+  "label": "Lite — a 14-record territory import",
+  "description": "A mid-size import with a few classic hygiene problems. Medium blast radius: a 3-agent team reviews it.",
+  "companies": [
+    {
+      "id": "co_101",
+      "name": "Cascade Analytics",
+      "domain": "cascade.example",
+      "industry": "Software",
+      "employeeCount": 90,
+      "enrichedAt": "2026-06-01"
+    },
+    {
+      "id": "co_102",
+      "name": "Cascade Analytics Inc",
+      "domain": "cascade.example",
+      "industry": "Software",
+      "employeeCount": 90,
+      "enrichedAt": "2026-05-28"
+    },
+    {
+      "id": "co_103",
+      "name": "Brightline Health",
+      "domain": "brightline.example",
+      "industry": "Healthcare",
+      "employeeCount": 1200,
+      "enrichedAt": "2023-11-04"
+    },
+    {
+      "id": "co_104",
+      "name": "Orchard Foods",
+      "domain": "orchardfoods.example",
+      "industry": "Consumer Goods",
+      "employeeCount": 430,
+      "enrichedAt": "2026-05-20"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "ct_101",
+      "email": "lee@cascade.example",
+      "firstName": "Lee",
+      "lastName": "Tran",
+      "companyId": "co_101",
+      "lifecycleStage": "opportunity"
+    },
+    {
+      "id": "ct_102",
+      "email": "lee@cascade.example",
+      "firstName": "Lee",
+      "lastName": "Tran",
+      "companyId": "co_102",
+      "lifecycleStage": "lead"
+    },
+    {
+      "id": "ct_103",
+      "email": "morgan@brightline.example",
+      "firstName": "Morgan",
+      "lastName": "Diaz",
+      "companyId": "co_103",
+      "lifecycleStage": "sql"
+    },
+    {
+      "id": "ct_104",
+      "email": "pat@orchardfoods.example",
+      "firstName": "Pat",
+      "lastName": "Nwosu",
+      "companyId": "co_104",
+      "lifecycleStage": "opportunity"
+    },
+    {
+      "id": "ct_105",
+      "email": "jordan@orchardfoods.example",
+      "firstName": "Jordan",
+      "lastName": "Kim",
+      "companyId": "co_104",
+      "lifecycleStage": "customer"
+    }
+  ],
+  "deals": [
+    {
+      "id": "dl_101",
+      "name": "Cascade — platform license",
+      "amount": 72000,
+      "stage": "presentationscheduled",
+      "closeDate": "2026-07-15",
+      "companyId": "co_101",
+      "attribution": { "firstTouch": "ct_101", "lastTouch": "ct_101" }
+    },
+    {
+      "id": "dl_102",
+      "name": "Brightline — pilot",
+      "amount": 31000,
+      "stage": "qualifiedtobuy",
+      "closeDate": "2026-02-01",
+      "companyId": "co_103",
+      "attribution": { "firstTouch": "ct_103", "lastTouch": "ct_103" }
+    },
+    {
+      "id": "dl_103",
+      "name": "Orchard — rollout",
+      "amount": 156000,
+      "stage": "decisionmakerboughtin",
+      "closeDate": "2026-08-01",
+      "companyId": "co_104",
+      "attribution": { "firstTouch": "ct_104", "lastTouch": "ct_103" }
+    },
+    {
+      "id": "dl_104",
+      "name": "Orchard — add-on",
+      "amount": 24000,
+      "stage": "closedwon",
+      "closeDate": "2026-05-22",
+      "companyId": "co_104",
+      "attribution": { "firstTouch": "ct_105", "lastTouch": "ct_105" }
+    },
+    {
+      "id": "dl_105",
+      "name": "Cascade — services",
+      "amount": -5000,
+      "stage": "contractsent",
+      "closeDate": "2026-07-20",
+      "companyId": "co_101",
+      "attribution": { "firstTouch": "ct_101", "lastTouch": "ct_101" }
+    }
+  ]
+}

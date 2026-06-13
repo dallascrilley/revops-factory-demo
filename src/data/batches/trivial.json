@@ -1,0 +1,62 @@
+{
+  "id": "trivial",
+  "tier": "trivial",
+  "label": "Trivial — a 6-record nightly sync",
+  "description": "A handful of records from a routine sync. Low blast radius: the factory sends a 2-agent team and downgrades the coordinator model.",
+  "companies": [
+    {
+      "id": "co_001",
+      "name": "Northwind Logistics",
+      "domain": "northwind.example",
+      "industry": "Transportation",
+      "employeeCount": 240,
+      "enrichedAt": "2026-05-30"
+    },
+    {
+      "id": "co_002",
+      "name": "Helios Pump Co",
+      "domain": "heliospump.example",
+      "industry": null,
+      "employeeCount": null,
+      "enrichedAt": "2024-01-12"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "ct_001",
+      "email": "dana@northwind.example",
+      "firstName": "Dana",
+      "lastName": "Reyes",
+      "companyId": "co_001",
+      "lifecycleStage": "opportunity"
+    },
+    {
+      "id": "ct_002",
+      "email": "sam@heliospump.example",
+      "firstName": "Sam",
+      "lastName": "Okafor",
+      "companyId": "co_002",
+      "lifecycleStage": "sql"
+    }
+  ],
+  "deals": [
+    {
+      "id": "dl_001",
+      "name": "Northwind — fleet telematics",
+      "amount": 48000,
+      "stage": "contractsent",
+      "closeDate": "2026-06-30",
+      "companyId": "co_001",
+      "attribution": { "firstTouch": "ct_001", "lastTouch": "ct_001" }
+    },
+    {
+      "id": "dl_002",
+      "name": "Helios — expansion",
+      "amount": 0,
+      "stage": "closedwon",
+      "closeDate": null,
+      "companyId": "co_002",
+      "attribution": { "firstTouch": "ct_002", "lastTouch": "ct_002" }
+    }
+  ]
+}
