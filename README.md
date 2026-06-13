@@ -54,4 +54,9 @@ functions/api/   review.ts (orchestrator + guard)
 tests/           engine + fixture tests
 ```
 
+This repo is the canonical source. It is also mirrored into the portfolio
+storefront (the `demo-lab` project that renders all demos), so the two are kept
+in sync — when this repo changes, the storefront copy is re-ported, and vice
+versa.
+
 MIT licensed. Part of [dallascrilley.com](https://dallascrilley.com) portfolio demos.
