@@ -9,13 +9,13 @@
  *   3. Break glass overrides the verdict to "approve" on any served result.
  *
  * All run logic is in src/components/orchestrator.ts; the guard makes the live
- * Anthropic backend safe on a public page (cache + per-IP rate limit + daily
+ * OpenRouter backend safe on a public page (cache + per-IP rate limit + daily
  * token budget, with failback to the last good run).
  */
 import { runReview, type RunResult } from '../../src/components/orchestrator.js';
 import { classifyRisk, cacheKey, MODELS } from '../../src/components/engine.js';
 import { decideServe, commitFreshRun, type KVLike, type GuardConfig } from '../../src/components/guard.js';
-import { anthropicTransport } from '../../src/agents/client.js';
+import { openrouterTransport } from '../../src/agents/client.js';
 import type { Batch } from '../../src/components/types.js';
 import trivial from '../../src/data/batches/trivial.json';
 import lite from '../../src/data/batches/lite.json';
@@ -28,7 +28,7 @@ const BATCHES: Record<string, Batch> = {
 };
 
 interface Env {
-  ANTHROPIC_API_KEY?: string;
+  OPENROUTER_API_KEY?: string;
   FACTORY_KV?: KVLike;
   DAILY_TOKEN_CAP?: string;
   RATE_PER_WINDOW?: string;
@@ -74,14 +74,14 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
 
   const batch = body.batchId ? BATCHES[body.batchId] : undefined;
   if (!batch) return jsonError(`Unknown batchId. Choose one of: ${Object.keys(BATCHES).join(', ')}`);
-  if (!context.env.ANTHROPIC_API_KEY) return jsonError('Server missing ANTHROPIC_API_KEY.', 500);
+  if (!context.env.OPENROUTER_API_KEY) return jsonError('Server missing OPENROUTER_API_KEY.', 500);
 
   const breakGlass = Boolean(body.breakGlass);
   const profile = classifyRisk(batch);
-  const modelset = Array.from(new Set([MODELS.haiku, profile.coordinatorModel]));
+  const modelset = Array.from(new Set([MODELS.cheap, profile.coordinatorModel]));
   const key = cacheKey(batch.id, modelset);
   const kv = context.env.FACTORY_KV;
-  const transport = anthropicTransport(context.env.ANTHROPIC_API_KEY);
+  const transport = openrouterTransport(context.env.OPENROUTER_API_KEY);
   const encoder = new TextEncoder();
 
   // Guard decision (skipped only when no KV is bound, e.g. bare local dev).

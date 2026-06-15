@@ -14,7 +14,7 @@ import {
 
 export const attribution: Specialist = {
   category: 'attribution',
-  model: MODELS.haiku,
+  model: MODELS.cheap,
 
   slice(batch: Batch) {
     return {

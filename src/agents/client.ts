@@ -2,8 +2,9 @@
  * Agent transport + shared prompt scaffolding.
  *
  * All specialists and the coordinator talk to the model through a `Transport`.
- * In production that's `anthropicTransport` (a raw fetch to the Messages API — no
- * SDK, so it bundles cleanly into a Workers/Pages Function). In tests it's
+ * In production that's `openrouterTransport` (a raw fetch to the OpenRouter
+ * chat-completions API — no SDK, so it bundles cleanly into a Workers/Pages
+ * Function); `anthropicTransport` is kept as an alternative. In tests it's
  * `fixtureTransport`, which replays recorded responses keyed by agent label — no
  * network, deterministic. This is the "fixture mode" the plan calls for.
  */
@@ -95,6 +96,48 @@ export function anthropicTransport(apiKey: string, fetchImpl: typeof fetch = fet
       usage: {
         inputTokens: data.usage?.input_tokens ?? 0,
         outputTokens: data.usage?.output_tokens ?? 0,
+      },
+    };
+  };
+}
+
+/**
+ * Live transport: one POST to the OpenRouter chat-completions API per agent
+ * call. OpenRouter is OpenAI-compatible, so the demo backend needs only an
+ * OpenRouter key and the model ids in `MODELS` (e.g. `google/gemini-2.5-flash-lite`).
+ * This is the production transport.
+ */
+export function openrouterTransport(apiKey: string, fetchImpl: typeof fetch = fetch): Transport {
+  return async (call) => {
+    const res = await fetchImpl('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Bearer ${apiKey}`,
+        'x-title': 'RevOps Software Factory demo',
+      },
+      body: JSON.stringify({
+        model: call.model,
+        max_tokens: 2048,
+        messages: [
+          { role: 'system', content: call.system },
+          { role: 'user', content: call.user },
+        ],
+      }),
+    });
+    if (!res.ok) {
+      throw new Error(`openrouter ${call.label} call failed: ${res.status}`);
+    }
+    const data = (await res.json()) as {
+      choices?: { message?: { content?: string } }[];
+      usage?: { prompt_tokens?: number; completion_tokens?: number };
+    };
+    const text = data.choices?.[0]?.message?.content ?? '';
+    return {
+      text,
+      usage: {
+        inputTokens: data.usage?.prompt_tokens ?? 0,
+        outputTokens: data.usage?.completion_tokens ?? 0,
       },
     };
   };

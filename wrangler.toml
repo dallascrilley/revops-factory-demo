@@ -4,7 +4,7 @@
 #   pnpm build && npx wrangler pages dev dist   # serve site + functions locally
 #
 # Required runtime bindings (set in the Cloudflare dashboard / via `wrangler`):
-#   - secret  ANTHROPIC_API_KEY   (LLM provider key; never committed)
+#   - secret  OPENROUTER_API_KEY  (LLM provider key; never committed)
 #   - kv       FACTORY_KV         (run cache + per-IP rate limit + daily budget)
 #
 name = "revops-factory-demo"

@@ -58,9 +58,9 @@ export interface RunOptions {
   timeoutMs?: number;
 }
 
-/** Cheaper previous-gen model to fail back to for a given model. */
+/** Cheaper model to fail back to for a given model. */
 function fallbackModel(model: string): string {
-  return model === MODELS.sonnet ? MODELS.haiku : MODELS.haiku;
+  return model === MODELS.mid ? MODELS.cheap : MODELS.cheap;
 }
 
 function withTimeout<T>(p: Promise<T>, ms: number): Promise<T> {

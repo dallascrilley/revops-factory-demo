@@ -37,9 +37,9 @@ test('classifyRisk: each batch lands in its expected tier and team size', () => 
 });
 
 test('classifyRisk: trivial downgrades the coordinator, lite/full keep the top model', () => {
-  assert.equal(classifyRisk(load('trivial')).coordinatorModel, MODELS.haiku);
-  assert.equal(classifyRisk(load('lite')).coordinatorModel, MODELS.sonnet);
-  assert.equal(classifyRisk(load('full')).coordinatorModel, MODELS.sonnet);
+  assert.equal(classifyRisk(load('trivial')).coordinatorModel, MODELS.cheap);
+  assert.equal(classifyRisk(load('lite')).coordinatorModel, MODELS.mid);
+  assert.equal(classifyRisk(load('full')).coordinatorModel, MODELS.mid);
 });
 
 test('classifyRisk: tier boundaries (score = companies + contacts + deals*2)', () => {
@@ -94,11 +94,11 @@ test('fuseFindings: sorts critical first', () => {
 
 test('costOf: sums tokens and dollars at list prices', () => {
   const out = costOf([
-    { model: MODELS.haiku, inputTokens: 1_000_000, outputTokens: 0 }, // $1.00
-    { model: MODELS.sonnet, inputTokens: 0, outputTokens: 1_000_000 }, // $15.00
+    { model: MODELS.cheap, inputTokens: 1_000_000, outputTokens: 0 }, // $0.10
+    { model: MODELS.mid, inputTokens: 0, outputTokens: 1_000_000 }, // $2.50
   ]);
   assert.equal(out.tokens, 2_000_000);
-  assert.equal(out.usd, 16.0);
+  assert.equal(out.usd, 2.6);
 });
 
 test('costOf: unknown model contributes tokens but no cost', () => {
@@ -111,12 +111,12 @@ test('costOf: unknown model contributes tokens but no cost', () => {
 
 test('cacheKey: stable and order-independent across the model set', () => {
   assert.equal(
-    cacheKey('lite', [MODELS.haiku, MODELS.sonnet]),
-    cacheKey('lite', [MODELS.sonnet, MODELS.haiku]),
+    cacheKey('lite', [MODELS.cheap, MODELS.mid]),
+    cacheKey('lite', [MODELS.mid, MODELS.cheap]),
   );
 });
 
 test('cacheKey: differs by batch and by model set', () => {
-  assert.notEqual(cacheKey('lite', [MODELS.haiku]), cacheKey('full', [MODELS.haiku]));
-  assert.notEqual(cacheKey('lite', [MODELS.haiku]), cacheKey('lite', [MODELS.sonnet]));
+  assert.notEqual(cacheKey('lite', [MODELS.cheap]), cacheKey('full', [MODELS.cheap]));
+  assert.notEqual(cacheKey('lite', [MODELS.cheap]), cacheKey('lite', [MODELS.mid]));
 });

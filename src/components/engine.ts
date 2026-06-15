@@ -22,19 +22,24 @@ import type {
 
 // ── Models & pricing ────────────────────────────────────────────────────────
 
-/** Anthropic model ids used by the factory. Specialists run cheap; coordinator mid. */
+/**
+ * OpenRouter model ids used by the factory. Specialists run on the `cheap` tier;
+ * the coordinator runs `mid` for batches that need judgment. Routed through
+ * OpenRouter (OpenAI-compatible) so the demo backend needs only an OpenRouter key.
+ */
 export const MODELS = {
-  haiku: 'claude-haiku-4-5-20251001',
-  sonnet: 'claude-sonnet-4-6',
+  cheap: 'google/gemini-2.5-flash-lite',
+  mid: 'google/gemini-2.5-flash',
 } as const;
 
 /**
- * List prices in USD per 1M tokens. Used by the cost ledger; update if pricing
- * changes. These are the demo's accounting inputs, not a pricing source of truth.
+ * List prices in USD per 1M tokens (OpenRouter list price for the models above).
+ * Used by the cost ledger; update if pricing changes. These are the demo's
+ * accounting inputs, not a pricing source of truth.
  */
 export const RATES: Record<string, { input: number; output: number }> = {
-  [MODELS.haiku]: { input: 1.0, output: 5.0 },
-  [MODELS.sonnet]: { input: 3.0, output: 15.0 },
+  [MODELS.cheap]: { input: 0.1, output: 0.4 },
+  [MODELS.mid]: { input: 0.3, output: 2.5 },
 };
 
 // ── Risk classification (R3) ─────────────────────────────────────────────────
@@ -63,7 +68,7 @@ export function classifyRisk(batch: Batch): RiskProfile {
   else tier = 'full';
 
   const specialistCount = tier === 'trivial' ? 2 : tier === 'lite' ? 3 : 4;
-  const coordinatorModel = tier === 'trivial' ? MODELS.haiku : MODELS.sonnet;
+  const coordinatorModel = tier === 'trivial' ? MODELS.cheap : MODELS.mid;
   return { tier, specialistCount, coordinatorModel };
 }
 
@@ -151,8 +156,9 @@ export function costOf(usages: ModelUsage[]): { tokens: number; usd: number } {
     tokens += u.inputTokens + u.outputTokens;
     usd += (u.inputTokens / 1_000_000) * rate.input + (u.outputTokens / 1_000_000) * rate.output;
   }
-  // Round to whole cents for display stability.
-  return { tokens, usd: Math.round(usd * 100) / 100 };
+  // Round to micro-dollars: the cheap models put a real run well under a cent,
+  // so whole-cent rounding would collapse the ledger to $0.00. The UI formats.
+  return { tokens, usd: Math.round(usd * 1_000_000) / 1_000_000 };
 }
 
 // ── Cache key (R5) ───────────────────────────────────────────────────────────

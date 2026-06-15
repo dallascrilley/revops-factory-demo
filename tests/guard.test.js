@@ -18,7 +18,7 @@ const result = (over = {}) => ({
   batchId: 'lite',
   tier: 'lite',
   specialistCount: 3,
-  coordinatorModel: 'claude-sonnet-4-6',
+  coordinatorModel: 'google/gemini-2.5-flash',
   findings: [],
   verdict: 'approved_with_comments',
   summary: 'ok',

@@ -14,7 +14,7 @@ import {
 
 export const enrichment: Specialist = {
   category: 'enrichment',
-  model: MODELS.haiku,
+  model: MODELS.cheap,
 
   slice(batch: Batch) {
     return {

@@ -9,6 +9,13 @@
 // no real client figures. ~3 hours of a RevOps analyst at a round rate.
 const HUMAN_BASELINE_USD = 420;
 
+// The cheap models put a real run well under a cent, so a flat 2-decimal format
+// would read "$0.00". Show whole cents above a cent, micro-dollars below.
+function fmtUsd(usd: number): string {
+  if (usd >= 0.01 || usd === 0) return `$${usd.toFixed(2)}`;
+  return `$${usd.toFixed(4)}`;
+}
+
 type Severity = 'critical' | 'warning' | 'suggestion';
 interface Finding {
   severity: Severity;
@@ -94,7 +101,7 @@ function renderVerdict(result: RunResult) {
 
   const savings = HUMAN_BASELINE_USD > 0 ? Math.round((1 - result.cost.usd / HUMAN_BASELINE_USD) * 100) : 0;
   $('ledger').innerHTML = [
-    cell('Cost this run', `$${result.cost.usd.toFixed(2)}`, `${result.cost.tokens.toLocaleString()} tokens`),
+    cell('Cost this run', fmtUsd(result.cost.usd), `${result.cost.tokens.toLocaleString()} tokens`),
     cell('Vs. analyst review', `$${HUMAN_BASELINE_USD}`, `~${savings}% cheaper`),
     cell('Team', `${result.specialistCount} agents`, `${result.tier} tier`),
     cell('Findings', `${result.findings.length}`, 'deduped + filtered'),

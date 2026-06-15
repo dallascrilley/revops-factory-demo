@@ -14,7 +14,7 @@ import {
 
 export const stageLogic: Specialist = {
   category: 'stage-logic',
-  model: MODELS.haiku,
+  model: MODELS.cheap,
 
   slice(batch: Batch) {
     return {

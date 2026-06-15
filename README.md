@@ -10,7 +10,7 @@ into the RevOps domain: instead of reviewing a merge request, it reviews a batch
 revenue records.
 
 **Honest boundary:** the data is **synthetic** (no real CRM, no client data). The
-agents make **real** Anthropic model calls server-side, fronted by a cache + budget +
+agents make **real** OpenRouter model calls server-side, fronted by a cache + budget +
 rate-limit guard so a public page can't run up an unbounded bill. Most runs serve a
 **cached real run**; the UI always tells you whether a run was `fresh`, `cached`, or a
 `failback`.
@@ -24,9 +24,9 @@ Pick a synthetic batch (Trivial / Lite / Full) ─▶ POST /api/review { batchId
   cache lookup ──hit─▶ return cached real run (instant, ~free)
   per-IP rate limit + global daily token budget ──exceeded─▶ failback to cached run
   classify risk (rows × field-sensitivity) → trivial=2 / lite=3 / full=4 specialists
-  dispatch specialists concurrently (Haiku): dedup · attribution · stage-logic · enrichment
+  dispatch specialists concurrently (Gemini 2.5 Flash Lite): dedup · attribution · stage-logic · enrichment
     each reads only its record slice + a shared-context blob written once
-  coordinator (Sonnet): dedup → re-categorize → reasonableness filter → approval-biased verdict
+  coordinator (Gemini 2.5 Flash): dedup → re-categorize → reasonableness filter → approval-biased verdict
   emit JSONL trace + token/cost totals
         ▼
   verdict card + live cost ledger (tokens · $ · cache-hit % · vs human-analyst baseline)
@@ -37,7 +37,7 @@ Pick a synthetic batch (Trivial / Lite / Full) ─▶ POST /api/review { batchId
 ```bash
 pnpm install
 pnpm build && npx wrangler pages dev dist   # serve site + functions
-# live runs need: a secret ANTHROPIC_API_KEY and a FACTORY_KV namespace binding
+# live runs need: a secret OPENROUTER_API_KEY and a FACTORY_KV namespace binding
 ```
 
 ```bash

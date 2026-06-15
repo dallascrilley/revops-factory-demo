@@ -14,7 +14,7 @@ import {
 
 export const dedup: Specialist = {
   category: 'dedup',
-  model: MODELS.haiku,
+  model: MODELS.cheap,
 
   slice(batch: Batch) {
     return {
